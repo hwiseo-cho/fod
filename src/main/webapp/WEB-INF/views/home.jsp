@@ -30,6 +30,11 @@ img.other{
     	transform: rotate(360deg);
     }
 }
+/*   
+linear-gradient(
+177deg
+, rgb(52 159 251), rgb(176 218 255)); 
+*/
 </style>
 <script>
 	var key;
@@ -132,6 +137,9 @@ img.other{
                    <hr style="border:4px solid #ffffff; opacity:unset; box-shadow:none; background:none; width:50%; display:inline-block;">
                    <h1 id="area" class="text-white font-weight-bold" style="text-align:center;  font-size:70px;"></h1>
                </div>
+               <div class="textcontainer">
+   <span class="particletext bubbles">Bubbles</span>
+</div>
            </div>
        </div>
    </header>
