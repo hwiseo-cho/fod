@@ -1,4 +1,4 @@
 # Dailyme
 
 ## 기술 스택
-<img src="https://img.shields.io/github/issues/hwiseo-cho/dailyme?color=6DB33F&label=%20Spring%20Boot&logo=Spring%20Boot"/>
+<img src="https://img.shields.io/badge/Sping%20Boot-6DB33F?style=flat&logo=Spring%20Boot&logoColor=555"/>
