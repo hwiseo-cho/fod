@@ -2,12 +2,9 @@
 위치기반 날씨 웹
 
 #### 1. Tech Stack
-<img src="https://img.shields.io/badge/Sping%20Boot-6DB33F?style=flat&logo=Spring%20Boot&logoColor=555"/>
-&nbsp;
-<img src="https://img.shields.io/badge/AWS-FF9900?style=flat&logo=Amazon&logoColor=555"/>
-&nbsp;
-<img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=Linux&logoColor=555"/>
-&nbsp;
+<img src="https://img.shields.io/badge/Sping%20Boot-6DB33F?style=flat&logo=Spring%20Boot&logoColor=555"/>&nbsp;
+<img src="https://img.shields.io/badge/AWS-FF9900?style=flat&logo=Amazon&logoColor=555"/>&nbsp;
+<img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=Linux&logoColor=555"/>&nbsp;
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=555"/>
 
 - Java 8
