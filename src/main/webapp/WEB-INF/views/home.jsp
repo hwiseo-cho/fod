@@ -177,11 +177,7 @@ linear-gradient(45deg, #4b647c, #525252)
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav" style="background-color:transparent;">
             <div class="container px-5">
-                <a class="navbar-brand fw-bold" href="#page-top"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="bi-list"></i>
-                </button>
+                <a class="navbar-brand fw-bold" href="#page-top"><span id="month"></span>&nbsp;&nbsp;<span id="time"></span></a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <!-- <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
                         <li class="nav-item"><a class="nav-link me-lg-3" href="#features">Features</a></li>
@@ -197,7 +193,7 @@ linear-gradient(45deg, #4b647c, #525252)
             </div>
         </nav>
         <!-- Mashead header-->
-        <header class="masthead">
+        <header class="masthead" style="background:linear-gradient(0deg, rgb(215 221 227) ,#24b8f4);">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
@@ -217,19 +213,16 @@ linear-gradient(45deg, #4b647c, #525252)
                                         <stop class="gradient-end-color" offset="100%"></stop>
                                     </linearGradient>
                                 </defs>
-                                <circle cx="50" cy="50" r="50"></circle></svg
+                                <%-- <circle cx="50" cy="50" r="50"></circle> --%></svg
                             ><svg class="shape-1 d-none d-sm-block" viewBox="0 0 240.83 240.83" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
-                                <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect></svg
-                            ><svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg>
+                               <!--  <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
+                                <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect> --></svg
+                            ><svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><%-- <circle cx="50" cy="50" r="50"></circle> --%></svg>
                             <div class="device-wrapper">
                                 <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
                                     <div class="screen bg-black" style="background-color:transparent !important; display: flex; justify-content: center; align-items: center;">
-                                        <!-- PUT CONTENTS HERE:-->
-                                        <!-- * * This can be a video, image, or just about anything else.-->
-                                        <!-- * * Set the max width of your media to 100% and the height to-->
-                                        <!-- * * 100% like the demo example below.-->
                                         <%-- <video muted="muted" autoplay="" loop="" style="max-width: 100%; height: 100%"><source src="${contextPath}/resources/images/demo-screen.mp4" type="video/mp4" /></video> --%>
+                                         
                                         <img id="mainImg" style="width:100%;" />
                                     </div>
                                 </div>
@@ -240,7 +233,7 @@ linear-gradient(45deg, #4b647c, #525252)
             </div>
         </header>
         <!-- Quote/testimonial aside-->
-        <aside class="text-center bg-gradient-primary-to-secondary" style="background:#fff !important;">
+       <%--  <aside class="text-center bg-gradient-primary-to-secondary" style="background:#fff !important;">
             <div class="container px-5">
                 <div class="row gx-5 justify-content-center">
                     <div class="col-xl-8">
@@ -249,7 +242,7 @@ linear-gradient(45deg, #4b647c, #525252)
                     </div>
                 </div>
             </div>
-        </aside>
+        </aside> --%>
         <%-- 
         <!-- App features section-->
         <section id="features">
