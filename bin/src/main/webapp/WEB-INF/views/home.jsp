@@ -54,12 +54,6 @@ linear-gradient(
 
 linear-gradient(45deg, #4b647c, #525252)
 */
-
-.weather_list{
-	width:80px;
-	text-align:center;
-	float:left;
-}
 </style>
 <script>
 	var key;
@@ -76,54 +70,41 @@ linear-gradient(45deg, #4b647c, #525252)
 			var latitude  = result.coords.latitude;	 // 경도 
 			var longitude = result.coords.longitude; // 위도
 			
-			searchWeather('1000',latitude,longitude);
-			searchWeather('1001',latitude,longitude);
+			searchWeather(latitude,longitude);
 		}, 
 		function(){
 			console.log('error');
 		});
 	});
 	
-	function searchWeather(num,latitude,longitude) {
-		var url = '';
-		if(num == '1000') {
-			url = 'https://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&appid='+key+'&units=metric&lang=kr';
-		} else if(num == '1001') {
-			url = 'https://api.openweathermap.org/data/2.5/onecall?lat='+latitude+'&lon='+longitude+'&units=metric&lang=kr&appid='+key;
-		}
+	function searchWeather(latitude,longitude) {
+		var url = 'https://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&appid='+key+'&units=metric';
 		
 		fetch(url).then(function(response){
 			return response.json();
 		}).then(function(result){
-			if(num == '1000') {
+			if(result.cod == '200') {
+				console.log(result);
 				$('#temp').text(Math.round(Number(result.main.temp)) + ' ℃');
 				$('#area').text(result.weather[0].main);
 				$('#name').text(result.name);
 				
 				changeImageAndBackground(result.weather[0].main,result.weather[0].icon);
-			} else if(num == '1001') {
-				var hourly = result.hourly;
-				$('#weatherList').html();
-				
-				var str = '';
-				for(var i=0; i<24; i++) {
-					str += '<div class="weather_list">';
-					str += '	<div>'+ '시간' +'</div>';
-					str += '	<div><img src="https://openweathermap.org/img/wn/'+hourly[i].weather[0].icon+'@2x.png" style="width:100%;" /></div>';
-					str += '	<div>'+hourly[i].temp + ' ℃'+'</div>';
-					str += '</div>';
-				}
-				
-				$('#weatherList').html(str);	
-		       	
-				console.log(result);
 			}
 		});
 	}
 	
 	function changeImageAndBackground(main,icon) {
-		$('#mainImg').attr('src','https://openweathermap.org/img/wn/'+icon+'@2x.png').removeClass('weather');
-		$('#mainImg2').attr('src','https://openweathermap.org/img/wn/'+icon+'@2x.png').removeClass('weather');
+		if(main == 'Sunny') {
+		//	$('#backImg').css({'background':'linear-gradient( 45deg, yellow, #ff7907 )'});
+			$('#mainImg').attr('src','${contextPath}/resources/images/sunny.png').addClass('weather');
+		} else if(main == 'Clouds' || main == 'Haze' || main == 'Mist' || 'Snow') {
+		//	$('#backImg').css({'background':'linear-gradient( 45deg, #8bddd2, #6c757d )'});
+			$('#mainImg').attr('src','https://openweathermap.org/img/wn/'+icon+'@2x.png').removeClass('weather');
+		} else {
+		//	$('#backImg').css({'background':'linear-gradient( 45deg, yellow, #ff7907 )'});
+			$('#mainImg').attr('src','https://openweathermap.org/img/wn/'+icon+'@2x.png').removeClass('weather');
+		}
 	}
 	
 	function getTime() {
@@ -132,7 +113,7 @@ linear-gradient(45deg, #4b647c, #525252)
 		$('#time').text( ('0' + initDate.getHours()).slice(-2)+':'+('0' + initDate.getMinutes()).slice(-2));
 		
 		if(Number(initDate.getHours()) >= 18) {
-			$('.masthead').css({'background':'linear-gradient(45deg, #4b647c, #525252)','padding-top':'6.5rem !important'});
+			$('.masthead').css({'background':'linear-gradient(45deg, #4b647c, #525252)'});
 		}
 		
 		setInterval(function(){
@@ -192,11 +173,11 @@ linear-gradient(45deg, #4b647c, #525252)
    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
    
 </body> -->
-	<body id="page-top" style="height:100%;">
+	<body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav" style="background-color:transparent;">
             <div class="container px-5">
-                <a class="navbar-brand fw-bold" href="#page-top" style="color:#fff;"><span id="month"></span>&nbsp;&nbsp;<span id="time"></span></a>
+                <a class="navbar-brand fw-bold" href="#page-top"><span id="month"></span>&nbsp;&nbsp;<span id="time"></span></a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <!-- <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
                         <li class="nav-item"><a class="nav-link me-lg-3" href="#features">Features</a></li>
@@ -218,11 +199,11 @@ linear-gradient(45deg, #4b647c, #525252)
                     <div class="col-lg-6">
                         <!-- Mashead text and app badges-->
                         <div class="mb-5 mb-lg-0 text-center text-lg-start">
-                            <h1 id="name" class="display-1 lh-1 mb-3" style="color:#fff;"></h1>
+                            <h1 id="name" class="display-1 lh-1 mb-3"></h1>
                            <!--  <p  class="lead fw-normal text-muted mb-5">Launch your mobile app landing page faster with this free, open source theme from Start Bootstrap!</p> -->
                         </div>
                     </div>
-                    <div class="col-lg-6" style="margin-top:-115px;">
+                    <div class="col-lg-6" style="margin-top:-75px;">
                         <!-- Masthead device mockup feature-->
                         <div class="masthead-device-mockup">
                             <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="fill:transparent;">
@@ -247,11 +228,6 @@ linear-gradient(45deg, #4b647c, #525252)
                                 </div>
                             </div>
                         </div>
-                        <h1 id="temp" class="display-1 lh-1 mb-3" style="color:#fff; text-align:center;"></h1>
-                    	<h2 id="area" class="display-1 lh-1 mb-3" style="color:#fff; text-align:center; font-size:30px;"></h2>
-                    </div>
-                    <hr>
-                    <div id="weatherList">	
                     </div>
                 </div>
             </div>
