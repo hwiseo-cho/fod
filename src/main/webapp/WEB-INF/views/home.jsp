@@ -60,11 +60,20 @@ linear-gradient(45deg, #4b647c, #525252)
 	text-align:center;
 	float:left;
 }
+.weather_list>div{
+	width:80px;
+}
+
+#weatherList::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
 </style>
 <script>
 	var key;
 	
 	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	
+	var initDate;
 	
 	$(function(){
 		key = '406cb129de55319689873830b7932d4d';
@@ -95,9 +104,12 @@ linear-gradient(45deg, #4b647c, #525252)
 		fetch(url).then(function(response){
 			return response.json();
 		}).then(function(result){
+			
+			console.log(result);
+			
 			if(num == '1000') {
 				$('#temp').text(Math.round(Number(result.main.temp)) + ' ℃');
-				$('#area').text(result.weather[0].main);
+				$('#area').text(result.weather[0].description);
 				$('#name').text(result.name);
 				
 				changeImageAndBackground(result.weather[0].main,result.weather[0].icon);
@@ -107,16 +119,18 @@ linear-gradient(45deg, #4b647c, #525252)
 				
 				var str = '';
 				for(var i=0; i<24; i++) {
+					var hour = Number(('0' + initDate.getHours()).slice(-2))+i+1;
+					if(hour > 23) {
+						hour -= 24;
+					}
 					str += '<div class="weather_list">';
-					str += '	<div>'+ '시간' +'</div>';
+					str += '	<div>'+ hour +'시</div>';
 					str += '	<div><img src="https://openweathermap.org/img/wn/'+hourly[i].weather[0].icon+'@2x.png" style="width:100%;" /></div>';
-					str += '	<div>'+hourly[i].temp + ' ℃'+'</div>';
+					str += '	<div>'+Math.round(Number(hourly[i].temp)) + ' ℃'+'</div>';
 					str += '</div>';
 				}
 				
 				$('#weatherList').html(str);	
-		       	
-				console.log(result);
 			}
 		});
 	}
@@ -127,7 +141,7 @@ linear-gradient(45deg, #4b647c, #525252)
 	}
 	
 	function getTime() {
-		var initDate = new Date();
+		initDate = new Date();
 		$('#month').text(monthNames[initDate.getMonth()]);
 		$('#time').text( ('0' + initDate.getHours()).slice(-2)+':'+('0' + initDate.getMinutes()).slice(-2));
 		
@@ -247,11 +261,11 @@ linear-gradient(45deg, #4b647c, #525252)
                                 </div>
                             </div>
                         </div>
-                        <h1 id="temp" class="display-1 lh-1 mb-3" style="color:#fff; text-align:center;"></h1>
+                        <h1 id="temp" class="display-1 lh-1 mb-3" style="color:#fff; text-align:center; margin-top:-30px;"></h1>
                     	<h2 id="area" class="display-1 lh-1 mb-3" style="color:#fff; text-align:center; font-size:30px;"></h2>
                     </div>
                     <hr>
-                    <div id="weatherList">	
+                    <div id="weatherList" style="overflow-x:scroll; display:flex; padding:0;">	
                     </div>
                 </div>
             </div>
