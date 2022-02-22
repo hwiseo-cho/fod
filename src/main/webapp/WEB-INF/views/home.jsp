@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dailyme</title>
-    <link rel="icon" type="${contextPath}/resources//images/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="${contextPath}/resources/images/sun_weather_icon.ico" href="${contextPath}/resources/images/sun_weather_icon.ico" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Google fonts-->
@@ -31,6 +31,7 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
 /* img.weather{
     animation: rotate_image 25s linear infinite;
@@ -55,27 +56,64 @@ linear-gradient(
 linear-gradient(45deg, #4b647c, #525252)
 */
 
-.weather_list{
-	width:80px;
-	text-align:center;
-	float:left;
-}
-.weather_list>div{
-	width:80px;
-}
-
-#weatherList::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-}
+	.weather_list{
+		width:80px;
+		text-align:center;
+		float:left;
+	}
+	.weather_list>div{
+		width:80px;
+		color:#fff;
+	}
+	
+	#weatherList::-webkit-scrollbar {
+	    display: none; /* Chrome, Safari, Opera*/
+	}
+	#weekList>div{
+	    width:100%;
+	    height:50px;
+	    color:#fff;
+	    text-align:center;
+	}
+	#weekList>div>div{
+		float:left;
+		line-height:50px;
+	}
+	#weekList>div>div:nth-child(1){
+		width:20%;
+		text-align:left;
+	}
+	#weekList>div>div:nth-child(2){
+		width:50%;
+	}
+	#weekList>div>div:nth-child(3){
+		width:15%;
+		text-align:right;
+	}
+	#weekList>div>div:nth-child(4){
+		width:15%;
+		text-align:right;
+	}
+	hr{
+		margin:1rem 0 !important;
+	}
 </style>
 <script>
 	var key;
 	
 	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	
+	var weekDay = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+	var today = '';
+	
 	var initDate;
 	
 	$(function(){
+		
+	//	Kakao.init('bfa3a5c853ad7226d362c10d4cd3a847');
+	//	Kakao.isInitialized();
+	//	console.log(Kakao.isInitialized())
+		
 		key = '406cb129de55319689873830b7932d4d';
 		
 		getTime();
@@ -114,6 +152,7 @@ linear-gradient(45deg, #4b647c, #525252)
 				
 				changeImageAndBackground(result.weather[0].main,result.weather[0].icon);
 			} else if(num == '1001') {
+				/* 하루 24시간 날씨 */
 				var hourly = result.hourly;
 				$('#weatherList').html();
 				
@@ -123,14 +162,31 @@ linear-gradient(45deg, #4b647c, #525252)
 					if(hour > 23) {
 						hour -= 24;
 					}
+					
 					str += '<div class="weather_list">';
-					str += '	<div>'+ hour +'시</div>';
+					str += '	<div>'+ hour + ' 시</div>';
 					str += '	<div><img src="https://openweathermap.org/img/wn/'+hourly[i].weather[0].icon+'@2x.png" style="width:100%;" /></div>';
 					str += '	<div>'+Math.round(Number(hourly[i].temp)) + ' ℃'+'</div>';
 					str += '</div>';
 				}
 				
 				$('#weatherList').html(str);	
+				
+				/* 일주일 날씨 */
+				var daily = result.daily;
+				$('#weekList').html();
+				
+				var dailyStr = '';
+				for(var i=1; i<daily.length; i++) {
+					dailyStr += '<div>';
+					dailyStr += '	<div>'+ weekDay[((today+i > 6)?today+i-6:today+i)] +'</div>';
+					dailyStr += '	<div><img src="https://openweathermap.org/img/wn/'+daily[i].weather[0].icon+'@2x.png" style="width:40px;" /></div>';
+					dailyStr += '	<div>'+Math.round(Number(daily[i].temp.max))+'</div>';
+					dailyStr += '	<div>'+Math.round(Number(daily[i].temp.min))+'</div>';
+					dailyStr += '</div>';
+				}
+				
+				$('#weekList').html(dailyStr);
 			}
 		});
 	}
@@ -144,6 +200,8 @@ linear-gradient(45deg, #4b647c, #525252)
 		initDate = new Date();
 		$('#month').text(monthNames[initDate.getMonth()]);
 		$('#time').text( ('0' + initDate.getHours()).slice(-2)+':'+('0' + initDate.getMinutes()).slice(-2));
+		
+		today = initDate.getDay();
 		
 		if(Number(initDate.getHours()) >= 18) {
 			$('.masthead').css({'background':'linear-gradient(45deg, #4b647c, #525252)','padding-top':'6.5rem !important'});
@@ -266,6 +324,9 @@ linear-gradient(45deg, #4b647c, #525252)
                     </div>
                     <hr>
                     <div id="weatherList" style="overflow-x:scroll; display:flex; padding:0;">	
+                    </div>
+                    <hr>
+                    <div id="weekList" style="padding:0;">	
                     </div>
                 </div>
             </div>
