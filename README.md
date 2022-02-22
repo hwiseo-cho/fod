@@ -12,7 +12,7 @@
 
 #### 2. Info
 
-- 서버 주소: <https://dailyme.org/DLM>
+- 서버 주소: <https://dailyme.org>
 
 Dailyme는 OpenWeatherMap API를 사용하여 현재 위치 기반 현재 날씨를 알 수 있는 웹이다.
  
